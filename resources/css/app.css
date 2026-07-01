@@ -1,0 +1,341 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Declare custom downloaded Pashto font Bahij Muna */
+@font-face {
+    font-family: 'Bahij Muna';
+    src: url('/fonts/BahijMuna-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+    --font-sans: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-urdu: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', sans-serif;
+    --font-pashto: 'Bahij Muna', 'Noto Sans Arabic', sans-serif;
+}
+
+/* Urdu & Pashto specific font size scaling & line height adjustments */
+.font-urdu {
+    line-height: 1.9 !important; /* Nastaliq requires extra height clearance for cursive text */
+}
+
+.font-pashto {
+    line-height: 1.85 !important; /* Proper line spacing for Bahij Muna font */
+}
+
+/* Urdu Font Size Adjustments (Balanced and readable - slightly decreased to prevent bulkiness) */
+.font-urdu .text-\[9px\] { font-size: 11.5px !important; }
+.font-urdu .text-\[10px\] { font-size: 13px !important; }
+.font-urdu .text-xs { font-size: 15px !important; }
+.font-urdu .text-sm { font-size: 16px !important; }
+.font-urdu .text-base { font-size: 18px !important; }
+.font-urdu .text-lg { font-size: 20px !important; }
+.font-urdu .text-xl { font-size: 23px !important; }
+.font-urdu .text-2xl { font-size: 26px !important; }
+.font-urdu .text-3xl { font-size: 32px !important; }
+
+/* Pashto Font Size Adjustments (Significantly increased for excellent Bahij Muna visibility) */
+.font-pashto .text-\[9px\] { font-size: 18.5px !important; }
+.font-pashto .text-\[10px\] { font-size: 20px !important; }
+.font-pashto .text-xs { font-size: 22.5px !important; }
+.font-pashto .text-sm { font-size: 24.5px !important; }
+.font-pashto .text-base { font-size: 27px !important; }
+.font-pashto .text-lg { font-size: 30px !important; }
+.font-pashto .text-xl { font-size: 34px !important; }
+.font-pashto .text-2xl { font-size: 38px !important; }
+.font-pashto .text-3xl { font-size: 45px !important; }
+
+/* Standardize English/Latin elements with direct text size classes inside Urdu/Pashto */
+.font-urdu .text-\[9px\]\.font-sans, .font-urdu .text-\[9px\]\.font-mono,
+.font-pashto .text-\[9px\]\.font-sans, .font-pashto .text-\[9px\]\.font-mono { font-size: 9px !important; }
+
+.font-urdu .text-\[10px\]\.font-sans, .font-urdu .text-\[10px\]\.font-mono,
+.font-pashto .text-\[10px\]\.font-sans, .font-pashto .text-\[10px\]\.font-mono { font-size: 10px !important; }
+
+.font-urdu .text-xs\.font-sans, .font-urdu .text-xs\.font-mono,
+.font-pashto .text-xs\.font-sans, .font-pashto .text-xs\.font-mono { font-size: 12px !important; }
+
+.font-urdu .text-sm\.font-sans, .font-urdu .text-sm\.font-mono,
+.font-pashto .text-sm\.font-sans, .font-pashto .text-sm\.font-mono { font-size: 14px !important; }
+
+.font-urdu .text-base\.font-sans, .font-urdu .text-base\.font-mono,
+.font-pashto .text-base\.font-sans, .font-pashto .text-base\.font-mono { font-size: 16px !important; }
+
+.font-urdu .text-lg\.font-sans, .font-urdu .text-lg\.font-mono,
+.font-pashto .text-lg\.font-sans, .font-pashto .text-lg\.font-mono { font-size: 18px !important; }
+
+.font-urdu .text-xl\.font-sans, .font-urdu .text-xl\.font-mono,
+.font-pashto .text-xl\.font-sans, .font-pashto .text-xl\.font-mono { font-size: 20px !important; }
+
+.font-urdu .text-2xl\.font-sans, .font-urdu .text-2xl\.font-mono,
+.font-pashto .text-2xl\.font-sans, .font-pashto .text-2xl\.font-mono { font-size: 24px !important; }
+
+.font-urdu .text-3xl\.font-sans, .font-urdu .text-3xl\.font-mono,
+.font-pashto .text-3xl\.font-sans, .font-pashto .text-3xl\.font-mono { font-size: 30px !important; }
+
+/* Compensate and standardize English details and numbers under Urdu (relative fallbacks when size is inherited) */
+.font-urdu .font-mono:not([class*="text-"]), .font-urdu [class*="font-mono"]:not([class*="text-"]),
+.font-urdu .font-sans:not([class*="text-"]), .font-urdu [class*="font-sans"]:not([class*="text-"]),
+.font-urdu .tracking-widest:not([class*="text-"]), .font-urdu .tracking-wider:not([class*="text-"]) {
+    font-size: 0.75em !important; /* Scale down relative to enlarged parent */
+    font-family: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    letter-spacing: 0.03em !important;
+}
+
+/* Compensate and standardize English details and numbers under Pashto (relative fallbacks when size is inherited) */
+.font-pashto .font-mono:not([class*="text-"]), .font-pashto [class*="font-mono"]:not([class*="text-"]),
+.font-pashto .font-sans:not([class*="text-"]), .font-pashto [class*="font-sans"]:not([class*="text-"]),
+.font-pashto .tracking-widest:not([class*="text-"]), .font-pashto .tracking-wider:not([class*="text-"]) {
+    font-size: 0.60em !important; /* Scale down further to match standard Outfit sizes */
+    font-family: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+    letter-spacing: 0.03em !important;
+}
+
+/* --- Light/System Theme Variable Overrides --- */
+html:not(.dark) {
+    /* Backgrounds */
+    --color-slate-950: #f8fafc; /* canvas background */
+    --color-slate-900: #ffffff; /* cards / main components background */
+    --color-slate-850: #f1f5f9; /* sections / card details background */
+    
+    /* Borders */
+    --color-slate-800: #e2e8f0; /* borders */
+    
+    /* Interactive States & Secondary Text */
+    --color-slate-700: #cbd5e1; /* divider / border-focus */
+    --color-slate-600: #475569; /* text-slate-600 */
+    --color-slate-500: #64748b; /* text-slate-500 / placeholders */
+    --color-slate-400: #334155; /* text-slate-400 (base paragraph / descriptions) */
+    
+    /* Headings & High Contrast Text */
+    --color-slate-350: #1e293b; /* custom text scale */
+    --color-slate-300: #1e293b; /* text-slate-300 (subheadings) */
+    --color-slate-200: #0f172a; /* text-slate-200 */
+    --color-slate-100: #020617; /* text-slate-100 (headings) */
+    --color-slate-50: #020617;  /* text-slate-50 */
+    
+    /* Custom selections */
+    --color-indigo-500: #4f46e5; /* standard indigo-600 equivalent in light mode */
+    --color-violet-500: #7c3aed; /* standard violet-600 equivalent in light mode */
+}
+
+/* Ensure selections look beautiful in light mode */
+html:not(.dark) ::selection {
+    background-color: rgba(79, 70, 229, 0.15) !important;
+    color: #4f46e5 !important;
+}
+
+/* Override text-white to be dark slate in light mode, except inside solid elements */
+html:not(.dark) .text-white {
+    color: #0f172a !important;
+}
+
+html:not(.dark) .bg-indigo-600,
+html:not(.dark) .bg-indigo-600 *,
+html:not(.dark) button.bg-indigo-600,
+html:not(.dark) button.bg-indigo-600 *,
+html:not(.dark) a.bg-indigo-600,
+html:not(.dark) [class*="bg-indigo-500"] .text-white,
+html:not(.dark) [class*="bg-indigo-600"] .text-white,
+html:not(.dark) [class*="bg-violet-650"] .text-white,
+html:not(.dark) [class*="bg-violet-600"] .text-white,
+html:not(.dark) .bg-rose-500,
+html:not(.dark) .bg-rose-500 *,
+html:not(.dark) .bg-rose-600,
+html:not(.dark) .bg-rose-600 *,
+html:not(.dark) .bg-emerald-600,
+html:not(.dark) .bg-emerald-600 * {
+    color: #ffffff !important;
+}
+
+/* Adjust inactive switcher buttons so they aren't hidden on hover */
+html:not(.dark) a.hover\:text-white:hover,
+html:not(.dark) button.hover\:text-white:hover,
+html:not(.dark) .hover\:text-white:hover {
+    color: #4f46e5 !important; /* Beautiful indigo hover color in light mode */
+}
+
+/* Override text gradient in light mode to be dark & readable instead of white/light */
+html:not(.dark) .bg-clip-text {
+    --tw-gradient-from: #4f46e5 !important; /* indigo-600 */
+    --tw-gradient-via: #7c3aed !important;  /* violet-600 */
+    --tw-gradient-to: #c084fc !important;   /* purple-400 / light purple */
+    color: transparent !important;
+}
+
+/* Fix specific glows to look great on light background */
+html:not(.dark) .blur-3xl,
+html:not(.dark) .blur-2xl,
+html:not(.dark) .blur-\[120px\],
+html:not(.dark) .blur-\[130px\],
+html:not(.dark) .blur-\[110px\] {
+    opacity: 0.65; /* reduce brightness of glows so they don't look muddy */
+}
+
+/* Cards hover glow correction */
+html:not(.dark) .group:hover .group-hover\:text-indigo-400 {
+    color: #4f46e5 !important;
+}
+html:not(.dark) .group:hover .group-hover\:text-violet-400 {
+    color: #7c3aed !important;
+}
+
+/* Fix active tabs text color */
+html:not(.dark) .bg-indigo-500 {
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+}
+html:not(.dark) .bg-indigo-500 * {
+    color: #ffffff !important;
+}
+
+/* Specific group hover override for white text in catalog cards */
+html:not(.dark) .group:hover .group-hover\:text-white {
+    color: #4f46e5 !important;
+}
+
+/* Global hover contrast safety override: force non-solid links and buttons to turn indigo on hover */
+html:not(.dark) a:hover:not([class*="bg-indigo"]):not([class*="bg-gradient"]):not([class*="bg-rose"]):not([class*="bg-emerald"]):not([class*="bg-slate-900"]):not([class*="bg-slate-950"]),
+html:not(.dark) button:hover:not([class*="bg-indigo"]):not([class*="bg-gradient"]):not([class*="bg-rose"]):not([class*="bg-emerald"]):not([class*="bg-slate-900"]):not([class*="bg-slate-950"]) {
+    color: #4f46e5 !important;
+}
+
+/* --- Premium Light Mode Layout & Contrast Adjustments --- */
+html:not(.dark) body {
+    background-color: #f1f5f9 !important; /* Soft slate-100 canvas */
+}
+
+/* Light mode sidebar: pure white card with subtle slate border and soft shadow */
+html:not(.dark) aside {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.08) !important;
+}
+
+/* Sidebar active navigation items in light mode: solid indigo background with crisp white text */
+html:not(.dark) aside nav a.bg-indigo-600 {
+    background-color: #4f46e5 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px -2px rgba(79, 70, 229, 0.25) !important;
+}
+
+/* Light mode main workspace wrapper card: pure white with a clean border */
+html:not(.dark) .flex-grow.bg-slate-900 {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 10px 30px -10px rgba(148, 163, 184, 0.12) !important;
+}
+
+/* Inner slot page background: soft slate-50 to contrast with raised white cards */
+html:not(.dark) main.bg-slate-900\/50 {
+    background-color: #f8fafc !important;
+}
+
+/* Header inside the workspace */
+html:not(.dark) header.bg-slate-900\/60 {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Raised content cards, tables, filters panel, and metrics cards */
+html:not(.dark) .bg-slate-900:not(.flex-grow) {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 4px 12px -2px rgba(148, 163, 184, 0.06), 0 2px 4px -1px rgba(148, 163, 184, 0.04) !important;
+}
+
+/* Metric cards in dashboard */
+html:not(.dark) .grid > .bg-slate-900\/40 {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    box-shadow: 0 4px 12px -2px rgba(148, 163, 184, 0.06) !important;
+}
+
+/* Inner inputs and selectors: crisp light theme formatting */
+html:not(.dark) input,
+html:not(.dark) select,
+html:not(.dark) textarea {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+}
+
+html:not(.dark) input::placeholder,
+html:not(.dark) textarea::placeholder {
+    color: #94a3b8 !important;
+}
+
+/* Interactive tables details background styling */
+html:not(.dark) .bg-slate-850\/20,
+html:not(.dark) .bg-slate-850\/40,
+html:not(.dark) tr.hover\:bg-slate-850\/30:hover {
+    background-color: #f8fafc !important;
+}
+
+/* Table header rows */
+html:not(.dark) tr.bg-slate-850\/40 {
+    background-color: #f1f5f9 !important;
+}
+
+/* Dropdowns / Option background values */
+html:not(.dark) select option {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+}
+
+/* Modals layout: clean card backgrounds with proper backdrop color */
+html:not(.dark) .fixed.inset-0.bg-slate-950\/80 {
+    background-color: rgba(15, 23, 42, 0.4) !important; /* Premium semi-transparent backdrop */
+}
+
+/* Quick Action toggles inactive state check */
+html:not(.dark) .bg-slate-850\/40 {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+/* Premium Light mode welcome card overrides */
+html:not(.dark) .bg-gradient-to-r.from-slate-900 {
+    background-image: none !important;
+    background-color: #e0e7ff !important; /* Soft indigo-100 banner background */
+    border-color: #c7d2fe !important;
+}
+
+/* Ensure the text inside the welcome card uses dark indigo colors for premium contrast */
+html:not(.dark) .bg-gradient-to-r.from-slate-900 h1 {
+    color: #1e1b4b !important; /* Indigo-950 heading */
+}
+html:not(.dark) .bg-gradient-to-r.from-slate-900 p {
+    color: #312e81 !important; /* Indigo-900 paragraph */
+}
+html:not(.dark) .bg-gradient-to-r.from-slate-900 .text-indigo-400 {
+    color: #4f46e5 !important; /* Indigo-600 badge text */
+    background-color: rgba(79, 70, 229, 0.1) !important;
+    border-color: rgba(79, 70, 229, 0.15) !important;
+}
+html:not(.dark) .bg-gradient-to-r.from-slate-900 a.bg-indigo-500\/10 {
+    background-color: #4f46e5 !important; /* Make System Settings button solid in light mode for excellent visibility */
+    color: #ffffff !important;
+}
+
+/* Premium thin custom scrollbars for navigation links container in dark and light modes */
+aside nav::-webkit-scrollbar {
+    width: 4px;
+}
+aside nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+aside nav::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.15);
+    border-radius: 9999px;
+}
+aside nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.3);
+}
+
+
