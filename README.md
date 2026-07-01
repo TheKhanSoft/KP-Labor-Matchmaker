@@ -1,58 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 👷 Khyber Pakhtunkhwa Labor Matchmaker (KP-LM)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+An official, premium digital matchmaking portal designed to directly connect skilled laborers (welders, plumbers, electricians, cooks, maids) across Khyber Pakhtunkhwa with hiring firms, organizations, and independent contractors. By eliminating middlemen and agency fees, KP-LM simplifies recruitment and drives transparent economic opportunities.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 Core Architecture Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Trilingual Localization Support**: Full translations for **English**, **Urdu**, and **Pashto** (utilizing custom fonts like *Noto Nastaliq Urdu* and *Bahij Muna Pashto* with responsive size scaling).
+- **Floating Glass sidebars**: Constrained sidebar workspaces matching the high-fidelity aesthetics of modern SaaS portals.
+- **Spotlight Search (`Ctrl + K` / `Cmd + K`)**: Alpine.js-powered instant site-wide navigation matching the current workspace context.
+- **Dynamic Pricing Engine**: Fully configurable credit pricing supporting three distinct models:
+  - *Fixed/Flat rate* per credit token.
+  - *Monotonic Volume Bulk discount tiers* (with safety floor logic).
+  - *Cumulative Graduated pricing brackets* (rate applies only to units inside each specific bracket).
+- **Two-Stage Payments & Verification**: Checkout wizard that registers orders immediately as pending, allowing employers to upload payment screenshots (TxID references) either on the spot or later.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 💻 Workspaces & Panels
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 👑 1. Admin Console (`/admin`)
+The administrative control center allows system operators to manage the entire platform workflow:
+- **Application Configuration Settings**: Tabbed dashboard managing Branding, Localization, Security & Signup rules, Credit Pricing Policies, Payment Gateways (Bank transfer, Easypaisa, JazzCash, Crypto), and Helpline contacts.
+- **Credit Orders & Verification**: Audit interface to review transaction logs, inspect uploaded proof screenshots, and approve/refund/fail orders.
+- **Users Directory**: Manage system administrators, firms, and contractors; approve/suspend accounts, adjust wallets, and allocate manual credits.
+- **Workers Registry**: Browse all registered skilled laborers, update statuses, and register custom trade categories.
+- **Activity & Security Audit Trails**: Live logs capturing administrative actions, configuration changes, and deletes.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🏢 2. Employer / Firm Workspace (`/directory`)
+Dedicated workspace for hiring managers and company representatives:
+- **Search Worker Directory**: Filter candidate pools by sector (Industrial, Domestic), specific trade (Electrician, Plumber, Cook, etc.), experience years, and district.
+- **Candidate Unlock (Credit Deductions)**: Burn credit tokens to instantly reveal contact details of available workers.
+- **Credits Ledger (`/credits`)**: View dynamic credit balances, approved purchase inflows, and detailed candidate reveal deduction logs.
+- **Top-up checkout wizard (`/purchase`)**: Multi-step checkout flow (Choose Credits $\rightarrow$ Select Gateway $\rightarrow$ Confirm Checkout parameters $\rightarrow$ Submit reference & proof screenshot).
+- **Order History (`/orders`)**: View pending and completed invoices, and submit or edit payment proof screenshots for pending orders at any time.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### 🔧 3. Independent Contractor Workspace
+A tailored layout enabling local independent contractors to browse worker databases, unlock profiles, and post jobs:
+- **Active Job Postings**: Post labor job openings (specifying trade, salary, duration, and district) displayed on the public Job Board.
 
-## Agentic Development
+### 🌐 4. Public Portals
+- **Worker Intake Portal (`/register-worker`)**: Simple, accessible wizard allowing laborers to register their phone number, trade skills (including custom trades), district, and experience level.
+- **Bilingual User Guide (`/guide`)**: Visual tutorials walking employers and workers through registration and recruitment.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
+## 🛠️ Technical Stack
+
+- **Core Framework**: Laravel 13.x
+- **Frontend Stack**: Livewire 3.x / 4.x, Tailwind CSS, Alpine.js, Vite
+- **Localization**: Laravel JSON translation strings with RTL direction configurations
+- **Security & RBAC**: Spatie Laravel-Permission
+- **Testing**: Pest PHP Testing Framework (Unit, Component, and Feature Integration tests)
+
+---
+
+## 🚀 Installation & Setup
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/TheKhanSoft/KP-Labor-Matchmaker.git
+   cd KP-Labor-Matchmaker
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Configure Environment**:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Run Migrations & Seeders**:
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. **Create Storage Symbolic Link**:
+   ```bash
+   php artisan storage:link
+   ```
+
+6. **Build Asset Bundle**:
+   ```bash
+   npm run build
+   ```
+
+7. **Start Servers**:
+   ```bash
+   php artisan serve
+   # In another terminal:
+   npm run dev
+   ```
+
+---
+
+## 🧪 Running Automated Tests
+
+Run the complete feature integration test suite with:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The test suite asserts wallet transactions, pricing engine policies, faked file uploads, and role restrictions.
